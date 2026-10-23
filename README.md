@@ -1,68 +1,149 @@
-# Explorador Interactivo de Información
+# Explorador Interactivo de Rick and Morty
 
-Aplicación web académica para explorar personajes de la serie **Rick and Morty** mediante la [Rick and Morty API](https://rickandmortyapi.com/).
+## Integrante
 
-## Características
+- **Alan-2023Dts**
 
-- Consulta de personajes reales mediante `fetch()`.
-- Visualización de imagen, nombre, estado, especie y ubicación.
-- Buscador por nombre.
+## Descripción
+
+Aplicación web académica para consultar y explorar personajes de la serie
+**Rick and Morty** mediante la [Rick and Morty API](https://rickandmortyapi.com/).
+La interfaz permite buscar personajes por nombre, filtrar por estado y especie,
+consultar los resultados mediante paginación y guardar personajes favoritos en
+el navegador.
+
+El proyecto está construido como una aplicación estática, sin servidor propio
+ni dependencias externas que deban instalarse. La información de los
+personajes se obtiene en tiempo real desde la API.
+
+## Funcionalidades
+
+- Consulta de personajes mediante `fetch()`.
+- Visualización de imagen, nombre, estado, especie y última ubicación.
+- Búsqueda por nombre.
 - Filtros por estado y especie.
 - Paginación de resultados.
-- Favoritos persistentes con `localStorage`.
-- Mensajes para resultados vacíos y errores de API o red.
-- Diseño responsive para celular, tablet y computadora.
+- Gestión de favoritos.
+- Persistencia de favoritos mediante `localStorage`.
+- Mensajes para carga, resultados vacíos, errores de red y errores de la API.
+- Diseño responsive para celulares, tablets y computadoras.
+- Etiquetas semánticas y estados accesibles mediante atributos ARIA.
 
-## Tecnologías
+## Tecnologías utilizadas
 
-- HTML5 semántico.
-- CSS3 con diseño responsive.
+- HTML5.
+- CSS3 y diseño responsive.
 - JavaScript vanilla (ES6+).
 - Rick and Morty API.
 - GitHub Pages.
 
-## Ejecución
+## Instrucciones de uso
 
-Abre `index.html` en un navegador o visita la versión publicada en GitHub Pages cuando esté habilitada. La aplicación no requiere instalación ni servidor local.
+### Opción 1: abrir localmente
 
-## Estructura
+1. Descarga o clona este repositorio:
+
+   ```bash
+   git clone https://github.com/Alan-2023Dts/proyecto-web-ia.git
+   ```
+
+2. Abre el archivo `index.html` en un navegador moderno.
+3. Escribe un nombre en el buscador o selecciona un estado o especie.
+4. Usa **Mis favoritos** para mostrar los personajes guardados.
+5. Pulsa la estrella de una tarjeta para añadir o quitar un favorito.
+6. Usa **Limpiar** para restablecer la búsqueda y los filtros.
+
+No es necesario instalar paquetes ni ejecutar un servidor local. Se requiere
+conexión a Internet para consultar la API. Los favoritos se guardan en el
+`localStorage` del navegador y pueden desaparecer si se borran los datos del
+sitio.
+
+### Opción 2: versión publicada
+
+También puede utilizarse la versión publicada en GitHub Pages cuando esté
+habilitada para el repositorio.
+
+## Estructura del proyecto
 
 ```text
-├── index.html
-├── style.css
-├── script.js
-└── README.md
+├── index.html   # Estructura de la interfaz
+├── style.css    # Estilos y diseño responsive
+├── script.js    # Consumo de la API e interacción
+└── README.md    # Documentación del proyecto
 ```
 
-## Uso de Inteligencia Artificial
+## Prompts utilizados durante el desarrollo
 
-Esta sección documenta de forma transparente el apoyo de IA durante el desarrollo.
+Estos fueron algunos de los prompts principales utilizados como apoyo para
+planificar, implementar y revisar el proyecto:
 
-### Tres prompts importantes utilizados
+1. **Planificación:**
+   “Diseña la arquitectura de una aplicación web con HTML, CSS y JavaScript
+   para consultar la Rick and Morty API, incluyendo buscador, filtros y
+   favoritos.”
 
-1. "Diseña la arquitectura de una aplicación web con HTML, CSS y JavaScript para consultar la Rick and Morty API, incluyendo buscador, filtros y favoritos."
-2. "Implementa una función JavaScript que consuma la API con fetch(), gestione errores de red y muestre mensajes cuando no haya resultados."
-3. "Revisa la interfaz y propón mejoras responsive y de accesibilidad para una cuadrícula de tarjetas de personajes."
+2. **Consumo de API y errores:**
+   “Implementa una función JavaScript que consuma la API con `fetch()`,
+   gestione errores de red y muestre mensajes cuando no haya resultados.”
 
-### Respuesta de IA que requirió corrección
+3. **Interfaz y accesibilidad:**
+   “Revisa la interfaz y propón mejoras responsive y de accesibilidad para una
+   cuadrícula de tarjetas de personajes.”
 
-Una primera propuesta filtraba los favoritos únicamente sobre los personajes cargados en la página actual. Esto podía mostrar un mensaje vacío aunque existieran favoritos guardados en otra página de la API.
+4. **Persistencia:**
+   “Agrega favoritos persistentes con `localStorage` y permite alternar entre
+   todos los personajes y los favoritos.”
 
-### Error encontrado y resolución
+Las respuestas generadas por IA fueron revisadas y adaptadas antes de
+incorporarse al proyecto. La IA se utilizó como apoyo, no como sustituto de
+las pruebas y decisiones de implementación.
 
-Se identificó que la API responde con estado HTTP `404` cuando una búsqueda no encuentra personajes. Se resolvió comprobando `response.ok`, diferenciando el caso de resultados inexistentes de otros errores de servidor y mostrando un mensaje claro al usuario.
+## Dificultades encontradas y soluciones
 
-### Modificación explicable realizada al código
+### Manejo de búsquedas sin resultados
 
-Se añadió un estado centralizado en `script.js` para controlar personajes, página actual, filtros y favoritos. También se incorporó la clave `rick-morty-favorites` en `localStorage`, de modo que los favoritos permanecen disponibles después de cerrar o recargar el navegador.
+La API responde con código HTTP `404` cuando una búsqueda no encuentra
+personajes. Se agregó una comprobación de `response.ok` para mostrar un
+mensaje comprensible en lugar de dejar la interfaz en un estado ambiguo.
 
-### Reflexión sobre el aprendizaje
+### Errores de red
 
-La IA ayudó a acelerar la planificación y a detectar casos de error, pero fue necesario revisar, probar y adaptar sus sugerencias. El aprendizaje principal fue que una respuesta generada debe validarse contra la documentación de la API, la experiencia del usuario y los requisitos de evaluación antes de integrarse.
+Una consulta puede fallar aunque la API esté disponible, por ejemplo por falta
+de conexión. El código diferencia los errores de red de los errores de la API
+y muestra un mensaje específico para que el usuario pueda volver a intentarlo.
 
-## Control de calidad y entregables
+### Estado de filtros y paginación
 
-Durante el desarrollo se registrarán los avances mediante commits distribuidos, Issues y Pull Requests. También se verificará la publicación mediante GitHub Pages y el cumplimiento de todos los requisitos funcionales y académicos.
+Al cambiar el nombre, el estado o la especie, la consulta debe comenzar
+nuevamente desde la primera página. Se centralizó la carga de personajes en
+`fetchCharacters()` para mantener sincronizados los filtros, los resultados y
+la paginación.
+
+### Persistencia de favoritos
+
+Los favoritos tenían que conservarse después de recargar la página. Se
+resolvió guardando sus identificadores en `localStorage` con la clave
+`rick-morty-favorites` y recuperándolos al iniciar la aplicación.
+
+### Catálogo de especies
+
+La API no proporciona un catálogo independiente de especies para construir el
+selector. Por eso se incluyeron las especies más habituales como opciones
+iniciales: `Alien`, `Animal`, `Human`, `Humanoid` y `Robot`.
+
+### Limitación del filtro de favoritos
+
+El filtro de favoritos se aplica sobre los personajes cargados en la página
+actual de la API. Por ese motivo, un favorito guardado en otra página puede no
+aparecer hasta volver a consultar esa página.
+
+## Aprendizajes
+
+El desarrollo permitió practicar el consumo de una API externa, la gestión de
+estados en JavaScript, la persistencia en el navegador, el manejo explícito de
+errores y la creación de una interfaz responsive. También se comprobó que las
+respuestas generadas por IA deben validarse contra la documentación de la API,
+el comportamiento real de la aplicación y los requisitos del proyecto.
 
 ## Licencia
 
